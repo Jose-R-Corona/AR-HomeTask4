@@ -31,7 +31,12 @@ function q = IK_AumentedTask(Td, q0, L0)
         e_o= [0;0;0];
         e = [e_p; e_o]; %error in position and error in orientation 1x6
         
-        
+        fy=[0 0 0 0 0 pi/2 0]'
+        Jy=Jacobian(fy,L0)
+        Ja=[J;Jy]
+        delta_r=[e;fy] 
+        delta_q= Ja*delta_r ; % The solution is updated
+         
         
         q = q + delta_q;
         k = k + 1; % the iteration number is uodated

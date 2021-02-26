@@ -3,7 +3,7 @@ function q = IK_NullSpace(Td, q0, L0)
     eps_p = 1e-06; % min error in position
     eps_o = 1e-05; % min error in orientation
      
-    K = 5000; % Max number of iteration 
+    K = 5; % Max number of iteration 
     k = 0;
     % initialization of the variables
     q = q0';
@@ -35,36 +35,33 @@ function q = IK_NullSpace(Td, q0, L0)
         
         %
         if (k>2)
-            q_last = q_next;
+            q_last = q_next
         end
 
         if (k>1)
-            q_next = q;
+            q_next = q
         end
-        d_q0=[0 0 0 0 0 0 0];
-        for i=1:7
-            onlinjoinq=[0 0 0 0 0 0 0];
-            onlinjoinq(i)=q_last(i);
-            
-            J_last=Jacobian(onlinjoinq,L0);
-            H_last=real(sqrt(det(J_last*(J_last'))));
-            
-            onlinjoinq=[0 0 0 0 0 0 0];
-            onlinjoinq(i)=q_next(i);
-            J_next=Jacobian(onlinjoinq,L0);
-            H_next=real(sqrt(det(J_next*(J_next'))));
-            
+        
+        
+            J_last=Jacobian(q_last,L0);
+            H_last=sqrt(det(J_last*(J_last')));
+            H_next=sqrt(det(J*J'));
             Numerical_dev= 0.1*(H_next-H_last);
-            d_q0(i)=Numerical_dev;
-        end
+        
         %H=sqrt(det(J*(J')));
         %H_v=[H H H H H H H];
         %d_q0=gradient(H_v)'+0.01;
-        d_q0=d_q0';
+        d_q0=Numerical_dev'
         delta_r=e; 
+        
+        (eye(7)-pinv(J)*J)*d_q0
         
         delta_q= pinv(J)*delta_r + (eye(7)-pinv(J)*J)*d_q0; % The solution is updated
             
+        
+        
+        
+        
         q = q + delta_q;
         
         k = k + 1; % the iteration number is uodated
