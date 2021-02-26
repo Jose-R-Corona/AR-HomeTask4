@@ -37,9 +37,9 @@ plot3([T_last(1,4) T_new(1,4)],[T_last(2,4) T_new(2,4)],[T_last(3,4) T_new(3,4)]
 
 T_last=T_new;
 T_new=FK([q(1) q(2) q(3) q(4) q(5) q(6) q(7)],[L(1) L(2) L(3) L(4) L(5) L(6) L(7)]);
-plot3(T_last(1,4),T_last(2,4),T_last(3,4),'ro','MarkerSize',10,'LineWidth', 5);
-plot3([T_last(1,4) T_new(1,4)],[T_last(2,4) T_new(2,4)],[T_last(3,4) T_new(3,4)],'-r','LineWidth', 5);
+plot3(T_last(1,4),T_last(2,4),T_last(3,4),'co','MarkerSize',10,'LineWidth', 5);
+plot3([T_last(1,4) T_new(1,4)],[T_last(2,4) T_new(2,4)],[T_last(3,4) T_new(3,4)],'-c','LineWidth', 5);
 
-plot3(T_new(1,4),T_new(2,4),T_new(3,4),'ro','MarkerSize',10,'LineWidth', 5);
+plot3(T_new(1,4),T_new(2,4),T_new(3,4),'co','MarkerSize',10,'LineWidth', 5);
 
 
